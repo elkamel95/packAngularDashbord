@@ -1,0 +1,166 @@
+<mat-toolbar ><h6>Dashboard</h6> </mat-toolbar>
+
+    <div        [ngClass]="{'example-boundary': !modeLayout.drag}"  >
+     
+
+<div  fxLayout="column" fxFlexOffset="20px" fxLayoutGap="20px"  fxLayoutAlign="space-between start"> 
+
+    <div   
+    [ngClass]="{'border-permutation': modeLayout.permutation}"
+    (click)="permutation(0)"
+     [fxFlexOrder]="  modeLayout.postions ? '-1' : letters[0] "   
+     cdkDragBoundary=".example-boundary"  
+           [fxLayout]="modeLayout.indicateur"  fxLayoutGap="25px" 
+
+      *ngFor="let item of WidgetIndicator ;let last = last; let i = index "  >
+      <div  
+             *ngFor="let list of item ; let lastOflist = last; let index = index  ;"      
+
+
+            cdkDragBoundary=".example-boundary"
+            [ngClass]="{'cursor-move': !modeLayout.drag}"
+              cdkDrag  
+             (cdkDragEnded)="setWidgetToUpdate(list,$event)"
+             [cdkDragDisabled] ="modeLayout.drag"
+             [ngStyle]="   modeLayout.postions ? {'transform': 'translate(' +  list.positionLeft+ ', ' + list.positionRight  + ')', order:'' } : null "
+
+           > 
+
+<ng-container *ngIf="list.type == 1; else elseTemplate" >
+    <app-indicateur  matRipple
+    (loaded)="WidgetList.length==0 && WidgetGraphique.length==0  && lastOflist && last ? hiddenLoadSpinner($event) : null" 
+
+    matRippleColor="#00000029" (click)="setWidgetToUpdate(list)"[backgroundColor]=" list.backgroundSmallWidget "
+    [textColor] ="list.textColor"
+     [width] ="list.width"
+   [title]="list.nameFr" 
+   [height]="list.height"
+   [size] ="list.size"
+   [font]="list.font"
+   [backgroundSmallWidget]="list.backgroundColor"
+  [colorSmallWidget]="list.colorSmallWidget"
+  [url] ="list.url"
+
+   ></app-indicateur>
+</ng-container>
+<ng-template #elseTemplate>
+    <IndicateurListe
+    (loaded)="WidgetList.length==0 && WidgetGraphique.length==0 && lastOflist && last ? hiddenLoadSpinner($event) : null" 
+
+    (click)="setWidgetToUpdate(list)" 
+    [backgroundColor]=" list.backgroundSmallWidget "
+    [textColor] ="list.textColor"
+    [width] ="list.width"
+   [title]="list.nameFr" 
+   [height]="list.height"
+   [size] ="list.size"
+   [font]="list.font"
+   [backgroundSmallWidget]="list.backgroundColor"
+  [colorSmallWidget]="list.colorSmallWidget"
+  [url] ="list.url"
+  matRipple
+  matRippleColor="#00000029"
+    ></IndicateurListe>
+
+</ng-template>
+
+             
+            </div>
+
+    </div>
+
+    <div  [ngClass]="{'border-permutation': modeLayout.permutation}"  fxLayoutAlign="space-around start"    (click)="permutation(1)" 
+    
+    [fxFlexOrder]="  modeLayout.postions ? '' : letters[1] "   
+      [fxLayout]="modeLayout.list " fxLayoutGap="50px"
+       *ngFor="let item of WidgetList; let last = last; "
+
+      >
+        <div     *ngFor="let list of item ; let index = index  ; let lastOflist = last;"       
+        [ngClass]="{'cursor-move': !modeLayout.drag}"
+
+        cdkDragBoundary=".example-boundary" cdkDrag   
+
+        [cdkDragDisabled] ="modeLayout.drag"
+        (cdkDragEnded)="setWidgetToUpdate(list,$event)"
+        [ngStyle]="   modeLayout.postions ? {'transform': 'translate(' +  list.positionLeft+ ', ' + list.positionRight  + ')', order:''} : null "
+        >
+           
+             
+                <widget-list     
+                (loaded)="WidgetGraphique.length==0 && lastOflist && last ? hiddenLoadSpinner($event) : null" 
+
+               (click)="setWidgetToUpdate(list)" 
+                [backgroundColor]=" list.backgroundColor "
+                [textColor] ="list.textColor"
+                [width] ="list.width"
+               [title]="list.nameFr" 
+               [height]="list.height"
+               [size] ="list.size"
+               [font]="list.font"
+               [url] ="list.url"
+
+                 [title] ="list.nameFr" >
+            
+            </widget-list>
+
+
+         
+        </div>
+
+</div>
+ 
+
+    <div [fxLayout]="modeLayout.graphique " [ngClass]="{'border-permutation': modeLayout.permutation}"    (click)="permutation(2)"
+    [fxFlexOrder]="  modeLayout.postions ? '' : letters[2] "   
+
+   fxLayoutAlign="start center"  cdkDragBoundary=".example-boundary"
+    
+    
+     
+        fxLayoutGap="10px"  *ngFor="let item of WidgetGraphique ;let last = last; " >
+       
+
+        <div  fxFlex  cdkDrag  *ngFor="let list of item ; let i = index ;let lastOflist = last;"     
+        cdkDragBoundary=".example-boundary"  
+        [ngClass]="{'cursor-move': !modeLayout.drag}"
+        [cdkDragDisabled] ="modeLayout.drag"
+        
+           (cdkDragEnded)="setWidgetToUpdate(list,$event)"
+           [ngStyle]="   modeLayout.postions ? {'transform': 'translate(' +  list.positionLeft+ ', ' + list.positionRight  + ')' , order:''} : null "
+           >
+            <app-area   
+            (loaded)=" lastOflist && last ? hiddenLoadSpinner($event) : null" 
+
+            [backgroundColor]=" list.backgroundColor "
+            [textColor] ="list.textColor"
+            [width] ="list.width"
+           [title]="list.nameFr" 
+           [height]="list.height"
+           [size] ="list.size"
+           [font]="list.font"
+           [url] ="list.url"
+
+           (click)="setWidgetToUpdate(list) ; graphiqueComp.updateChartOption(list)"
+           
+            class="graphique-widget"  #graphiqueComp>
+            </app-area>
+        
+    
+    </div>
+        </div>
+    </div>
+    </div>
+    <div  >
+      <ngx-spinner
+      bdColor="rgba(255,255,255,0.9)"
+      color="#fff"
+      [fullScreen] = "true"
+      
+    >
+    <img src='../../../../assets/loading/loading1.svg' />
+  
+      </ngx-spinner>  
+    
+    
+    </div>

@@ -1,0 +1,621 @@
+<!-- dialog-box.component.html -->
+
+
+<h4 mat-dialog-title>
+  <mat-toolbar role="toolbar" class="task-header">
+      <span>{{action}} Widget </span>
+      <span class="fx-spacer"></span>
+      <button mat-icon-button (click)="closeDialog()">
+          <mat-icon mat-list-icon>close</mat-icon>
+      </button>
+  </mat-toolbar>
+</h4>
+<div fxLayout="column" >
+
+<div mat-dialog-content 
+ fxFlex="90"
+fxLayout="column" >
+
+
+
+
+
+<ng-container *ngIf="next == 0;">
+  <div  fxLayout="row"
+style=" margin-top: -9%;" 
+fxLayoutGap="20px"
+
+fxLayoutAlign="start start">
+
+<div fxLayout="column" fxFlex ="30"  class="border-style">
+<h1>Information</h1>
+
+    <div fxLayout="column"  >
+
+        <mat-label  fxFlexAlign="start"
+        class="text-color">Choose a name for your widget (francias)       : <span style=" color: #ffa000;">*</span> 
+        </mat-label>
+
+        <mat-form-field   style="margin-top: -1%;" fxflex ="100" > 
+
+        <input matInput placeholder="Enter name FR     "   [(ngModel)]="data.nameFr"
+        (keyup)="setChartOptions()" #name="ngModel" required  
+        >
+        <mat-icon matSuffix  color="warn"*ngIf="name.invalid">error</mat-icon>
+        <mat-icon matSuffix  color="accent"*ngIf="!name.invalid">done</mat-icon>
+
+
+
+        <mat-error  *ngIf="(name.touched || name.dirty) && name.errors">
+
+        <div  *ngIf="name.errors?.required"> name is required </div>
+
+        </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="column"  >
+
+      <mat-label  fxFlexAlign="start"
+      class="text-color">Choose a name for your widget (anglais)       : <span style=" color: #ffa000;">*</span> 
+      </mat-label>
+      <mat-form-field >
+
+      <input placeholder="Enter name  EN" matInput [(ngModel)]="data.nameEn" #nameEn="ngModel" required>
+      <mat-icon matSuffix  color="warn"*ngIf="nameEn.invalid">error</mat-icon>
+      <mat-icon matSuffix  color="accent"*ngIf="!nameEn.invalid">done</mat-icon>
+      <mat-error  *ngIf="(nameEn.touched || nameEn.dirty) && nameEn.errors">
+
+      <div  *ngIf="nameEn.errors?.required"> name EN is required </div>
+
+      </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column"  >
+
+      <mat-label  fxFlexAlign="start"
+      class="text-color">Tell us more about your widget      : <span style=" color: #ffa000;">*</span> 
+      </mat-label>
+<mat-form-field >
+<mat-label>Describe your widget</mat-label>
+<textarea matInput [(ngModel)]="data.description" #extarea="ngModel" required></textarea>
+<mat-error  *ngIf="(extarea.touched || extarea.dirty) && extarea.errors">
+
+<div  *ngIf="extarea.errors?.required"> Description is required </div>
+
+</mat-error>
+
+
+<mat-icon matSuffix  color="warn"*ngIf="extarea.invalid">error</mat-icon>
+<mat-icon matSuffix  color="accent"*ngIf="!extarea.invalid">done</mat-icon>
+</mat-form-field>
+    </div>
+    <div fxLayout="column"  >
+
+      <mat-label fxFlexAlign="start"
+      class="text-color">Select type for your widget      : <span style=" color: #ffa000;">*</span> 
+      </mat-label>
+<mat-form-field appearance="fill">
+
+<mat-label>Select Type </mat-label>
+<mat-select required [(ngModel)]="data.type" #select ="ngModel"  name="typeWidget" (selectionChange)= "setType($event);"  >
+<mat-option *ngFor="let typeWidget of types"  
+[value]="typeWidget.id"        
+>
+{{typeWidget.name}}
+</mat-option>
+
+</mat-select>
+<mat-icon matSuffix  color="warn"*ngIf="select.invalid">error</mat-icon>
+<mat-icon matSuffix  color="accent"*ngIf="!select.invalid">done</mat-icon>
+</mat-form-field>
+
+</div>
+
+</div>
+<div fxLayout="column"  fxFlex="100"  class="border-style" >
+<h1>Style</h1>
+<div fxLayout="row"  style="margin-top: -0.5%;" fxFlex  class="border-style">
+
+
+  <div fxLayout="column" fxLayoutAlign="space-around start" fxFlex >
+    <div fxLayout="row"  fxLayoutAlign="space-around start" >
+      <mat-label  fxFlexAlign="center" class="text-color" fxFlex>Width: {{data.width}}px<i style=" color: #ffa000;">*</i> </mat-label>
+
+        <mat-slider fxFlexAlign="center"    min="300" step="0.5" fxFlex [(ngModel)]="data.width"  [max]="screenWidth" value="400" (input)="setChartOptions();
+        data.width=$event.value">
+      </mat-slider>
+        </div>
+        <div fxLayout="row"  fxLayoutAlign="space-around start" >
+          <mat-label  fxFlexAlign="center" class="text-color" fxFlex>Height: {{data.height}}px<i style=" color: #ffa000;">*</i> </mat-label>
+
+
+
+        <mat-slider  fxFlexAlign="center" min="100" step="0.5"  fxFlex  max="400" value="300" (input)="setChartOptions(); data.height=$event.value"></mat-slider>
+
+</div>
+
+
+
+
+</div>
+<div fxLayout="column"  fxLayoutAlign="space-around start"    fxFlex='15'>
+
+  <div fxLayout="row"  fxLayoutAlign="space-around start" >
+    <mat-label  fxFlexAlign="center" class="text-color">Text Color:<i style=" color: #ffa000;">*</i> </mat-label>
+
+
+
+    <mcc-color-picker  fxFlex="5" hideButtons="true"  [selectedColor]="data.textColor" (selected)=" data.textColor =$event ;setChartOptions() ;  ">
+    </mcc-color-picker> 
+
+
+
+
+    </div>
+
+    <div fxLayout="row"  fxLayoutAlign="space-around start" >
+      <mat-label  fxFlexAlign="center" class="text-color">Background :<i style=" color: #ffa000;">*</i> </mat-label> 
+    <mcc-color-picker fxFlex="5" [selectedColor]="data.backgroundColor" hideButtons="true" (selected)=" data.backgroundColor =$event ;setChartOptions() ;  "></mcc-color-picker> 
+
+    </div>
+
+
+
+</div>
+
+<div fxLayout="column"  fxLayoutAlign="space-around start" fxFlex>
+<ng-container *ngIf="data.type != '4'; else elseGraphiqueStyle">
+  <div fxLayout="row"  fxLayoutAlign="space-around start" >
+    <mat-label  fxFlexAlign="center" class="text-color">Size:<i style=" color: #ffa000;">*</i> </mat-label>
+
+
+      <mat-form-field >
+      <mat-select  [(ngModel)]="data.size" >
+      <mat-option  *ngFor="let item of font_size" [value]="item">{{item}}</mat-option>
+      </mat-select> 
+      </mat-form-field>
+</div>
+<div fxLayout="row"  fxLayoutAlign="space-around start" >
+  <mat-label  fxFlexAlign="center" class="text-color">Font:<i style=" color: #ffa000;">*</i> </mat-label>
+
+<mat-form-field >
+
+<mat-select  [(ngModel)]="data.font" >
+<mat-option  *ngFor="let item of  font_style" [value]="item">{{item}}</mat-option>
+</mat-select> 
+</mat-form-field>
+</div>
+</ng-container>
+<ng-template #elseGraphiqueStyle>
+  <div fxLayout="row"  fxLayoutAlign="space-around start" >
+    <mat-label  fxFlexAlign="center" class="text-color">Size:<i style=" color: #ffa000;">*</i> </mat-label>
+
+<mat-form-field>
+<mat-select  [(ngModel)]="data.size"   (selectionChange)="setChartOptions()">
+
+<mat-option  *ngFor="let item of size" [value]="item">{{item}}</mat-option>
+</mat-select> 
+</mat-form-field>
+</div>
+<div fxLayout="row"  fxLayoutAlign="space-around start" >
+  <mat-label  fxFlexAlign="center" class="text-color">Font:<i style=" color: #ffa000;">*</i> </mat-label>
+<mat-form-field  >
+
+<mat-select  [(ngModel)]="data.font" >
+
+<mat-option  *ngFor="let item of  font_style" [value]="item">{{item}}</mat-option>
+</mat-select> 
+</mat-form-field>
+</div>
+</ng-template>
+
+
+</div>
+ <div fxLayout="column"  fxLayoutAlign="space-around start"   fxFlex
+  *ngIf="(data.type == '1')||(data.type == '2')">
+  
+  <div fxLayout="row"  fxLayoutAlign="space-around start" >
+    <mat-label  fxFlexAlign="center" class="text-color">Background Small Card :<i style=" color: #ffa000;">*</i> </mat-label>
+
+<mcc-color-picker usedColorLabel="backgroundSmallWidget " [selectedColor]="data.backgroundSmallWidget"  hideButtons="true" (selected)=" data.backgroundSmallWidget =$event ;  "></mcc-color-picker> 
+
+</div>
+
+<div fxLayout="row"  fxLayoutAlign="space-around start" >
+  <mat-label  fxFlexAlign="center" class="text-color">Indicator color :<i style=" color: #ffa000;">*</i> </mat-label>
+
+<mcc-color-picker  hideButtons="true"  [selectedColor]="data.colorSmallWidget"  (selected)=" data.colorSmallWidget =$event ;  "></mcc-color-picker> 
+
+
+</div>
+
+</div>
+</div>
+
+
+<div fxFlex  *ngIf="data.type == '1' " fxLayoutAlign="center center" >
+<app-indicateur [backgroundColor]=" data.backgroundSmallWidget "
+[textColor] ="data.textColor"
+[width] ="data.width"
+[title]="data.nameFr" 
+[height]="data.height"
+[size] ="data.size"
+[font]="data.font"
+[backgroundSmallWidget]="data.backgroundColor"
+[colorSmallWidget]="data.colorSmallWidget"
+></app-indicateur>
+
+</div>
+
+<div fxFlex *ngIf="data.type == '2' "  fxFlexAlign="center" >
+
+<IndicateurListe [backgroundColor]=" data.backgroundSmallWidget "
+[textColor] ="data.textColor"
+[width] ="data.width"
+[title]="data.nameFr" 
+[height]="data.height"
+[size] ="data.size"
+[font]="data.font"
+[backgroundSmallWidget]="data.backgroundColor"
+[colorSmallWidget]="data.colorSmallWidget"
+></IndicateurListe>
+
+</div>
+
+<div style="    padding: 100px;
+" fxFlex  *ngIf="data.type == '3'" fxFlexAlign="center">
+<widget-list  
+[textColor] ="data.textColor"
+[width] ="data.width"
+[title]="data.nameFr" 
+[height]="data.height"
+[size] ="data.size"
+[font]="data.font"
+[backgroundColor]=" data.backgroundColor "
+></widget-list>
+</div>
+<div  fxFlex class="border-style" style="margin-top: 0.5%;" *ngIf="data.type == '4'" fxFlexAlign="center">
+<app-area [title]="data.nameFr" [textColor] ="data.textColor"
+[width] ="data.width"
+[title]="data.nameFr" 
+[height]="data.height"
+[size] ="data.size"
+[font]="data.font"
+[backgroundColor]=" data.backgroundColor " [chartOptions]="chartOptions"></app-area>
+</div>
+</div>
+
+
+
+</div>
+</ng-container>
+<ng-container *ngIf="next == 1  ">
+  <div fxLayout="column"   fxFlex="100" style="margin-top: -9%;">
+
+  <div fxLayout="row"  fxLayoutAlign="start space-around "   fxLayoutGap="20px"
+  class="border-style"  >
+    <h1> Functionality </h1> 
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+    <div fxLayout="row"   >
+
+      
+    <mat-label  fxFlexAlign="center" class="text-color">Entity :<i style=" color: #ffa000;">*</i> </mat-label>
+
+    <mat-form-field>
+    <mat-select [disabled]="requests.length > 0 ? true : false " fxFlex [(ngModel)]="index"  (selectionChange)="getAttributes()">
+        <mat-option   *ngFor="let item of xmlEntites let index =index ; "  [value] ="index">
+            {{item.entities.value}}
+    
+        </mat-option>
+    </mat-select >
+  </mat-form-field>
+</div>
+<div fxLayout="row"  fxLayoutAlign="space-around start">
+
+  <mat-label  fxFlexAlign="center" class="text-color">By :<i style=" color: #ffa000;">*</i> </mat-label>
+
+<mat-form-field>
+    <mat-select  [compareWith]="compareFn" [(ngModel)]="attribute"   
+    (selectionChange)="getProperty()" 
+  
+    >
+      <ng-container *ngFor="let item of attributes let id =index" >
+  
+      <mat-option  id="item.$.name"   *ngIf="item.$.type != 'relation'" [value]="{by: item.$.name, index: id ,val:item.$.value}">
+            {{item.$.value}}
+        </mat-option>
+      </ng-container>
+
+    </mat-select >
+  </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around start" *ngIf="  filterType !=='string' &&  filterType !=='session'">
+
+    <mat-label  fxFlexAlign="center" class="text-color">Property :  <i style=" color: #ffa000;">*</i> </mat-label>
+
+<mat-form-field>
+    <mat-select  [(ngModel)]="property" >
+      <ng-container  *ngIf="  filterType =='date'" >
+      <mat-option 
+        
+      *ngFor="let property of dateFilterProperty ; let id =index"
+      
+      [value]="property.name">
+          {{property.value}}
+  
+      </mat-option>
+    </ng-container>
+      <ng-container *ngIf="  filterType =='array'" >
+        <mat-option    *ngFor="let item of  attributesValues ; let id =index"
+        [value]=" dynamicArray ?{ name: item[dynamicArrayProperty.$.name],value: item[dynamicArrayProperty.$.value]}:{name:item.$.name,value:item.$.value}">
+           {{dynamicArray ? item[dynamicArrayProperty.$.value] : item.$.value }}
+   
+       </mat-option>
+        </ng-container>
+        
+        <ng-container *ngIf="  filterType =='boolean'" >
+          <mat-option  *ngFor="let booleanFilter of booleanFilterProperty"    [value]="booleanFilter.name">
+          {{booleanFilter.value}}      
+          </mat-option>
+  
+          </ng-container>
+          <ng-container *ngIf="  filterType =='numeric'" >
+
+            <mat-option *ngFor="let item of  numericFilterProperty ; let id =index"
+            [value]="item.name">{{item.value}}</mat-option>
+           
+            </ng-container>
+
+    
+    </mat-select >
+  </mat-form-field>
+  </div>
+  <ng-container  [ngSwitch]="filterType">
+  
+  <ng-container  *ngSwitchCase="'date'" >
+ 
+    <div fxLayout="row"  [hidden]="isDynamic"  >
+
+      <mat-label  fxFlexAlign="center" class="text-color">Date:<i style=" color: #ffa000;">*</i> </mat-label>
+
+    <mat-form-field>
+      <mat-label>{{labelDate}} </mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="dateValue" #date [disabled]= "property.length > 0 ? property.charAt(0)=='#'? true:false :false" required>
+      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    
+  </div>
+
+  <button  mat-button [color]=" indexOfUpdateRequest == null ? 'accent' : 'primary' " fxFlexAlign="center" (click)="generateUrl(date)"><mat-icon class="mat-icon-size" [matTooltip]="indexOfUpdateRequest == null ? 'Add' : 'Edit'">{{ indexOfUpdateRequest == null ? 'add_circle' : 'build_circle'}} </mat-icon></button>
+
+  </ng-container>
+  
+  <ng-container   *ngSwitchCase="'numeric'" >
+    <div fxLayout="row" fxFlex  >
+      <mat-label  fxFlexAlign="center" class="text-color">Value:<i style=" color: #ffa000;">*</i> </mat-label>
+
+      <mat-form-field>
+      <input matInput type="number" #num  [(ngModel)]="dateValue" >
+
+    </mat-form-field>
+  </div>
+  <button  mat-button [color]=" indexOfUpdateRequest == null ? 'accent' : 'primary' " fxFlexAlign="center" (click)="generateUrl(num)"><mat-icon class="mat-icon-size" [matTooltip]="indexOfUpdateRequest == null ? 'Add' : 'Edit'" >{{ indexOfUpdateRequest == null ? 'add_circle' : 'build_circle'}} </mat-icon></button>
+  </ng-container> 
+  <ng-container   *ngSwitchCase="'string'" >
+    <div fxLayout="row" fxFlex  >
+
+      
+      <mat-label fxFlex class="text-color">Value : <span style=" color: #ffa000;">*</span>: </mat-label>
+    <mat-form-field>
+      <input matInput type="text" #txt   >
+
+    </mat-form-field>
+  </div>
+  <button  mat-button [color]=" indexOfUpdateRequest == null ? 'accent' : 'primary' " fxFlexAlign="center" (click)="generateUrl(txt)"><mat-icon class="mat-icon-size" [matTooltip]="indexOfUpdateRequest == null ? 'Add' : 'Edit'">{{ indexOfUpdateRequest == null ? 'add_circle' : 'build_circle'}} </mat-icon></button>
+
+  </ng-container> 
+  <ng-container   *ngSwitchCase="'session'" >
+    <div fxLayout="row" fxFlex  >
+
+      
+      <input  type="hidden" value="#CU#" #txt   >
+
+  </div>
+  <button  mat-button [color]=" indexOfUpdateRequest == null ? 'accent' : 'primary' " fxFlexAlign="center" (click)="generateUrl(txt)"><mat-icon class="mat-icon-size" [matTooltip]="indexOfUpdateRequest == null ? 'Add' : 'Edit'">{{ indexOfUpdateRequest == null ? 'add_circle' : 'build_circle'}} </mat-icon></button>
+
+  </ng-container> 
+  <ng-container *ngSwitchDefault>
+    <button  mat-button [color]=" indexOfUpdateRequest == null ? 'accent' : 'primary' " fxFlexAlign="center" (click)="generateUrl('')"><mat-icon class="mat-icon-size" [matTooltip]="indexOfUpdateRequest == null ? 'Add' : 'Edit'">{{ indexOfUpdateRequest == null ? 'add_circle' : 'build_circle'}} </mat-icon></button>
+
+  </ng-container>
+
+
+</ng-container>
+
+</div>
+</div>
+  <div fxLayout="row"  fxLayoutAlign="start space-around " class="border-style" style="height: 280px ; min-height: 280px; margin-top: 3%;">
+    <h1> {{entity.value   | titlecase}} </h1> 
+<div fxLayout="row" fxLayoutGap="60px">
+  <div fxLayout="row"  fxFlexAlign="center"
+    
+  *ngFor="let request of requests let index=index ;" >
+  
+    <box-request *ngIf="request.by != undefined" (updateFilter)="UpdateQueryByIndex($event)" [by]="request.by"   
+
+      [property]="request.property"
+    [value]="request.value"
+    [name]="request.name"
+    [type]="request.type "
+ [dynamic]="request.dynamic"
+    [index]="index"
+[valueArray]="request.valueArray"
+  (removeFilter)="removeByIndex(index)" (updateFilter)="UpdateQueryByIndex(index)">
+</box-request>
+  
+  </div>
+</div>
+</div>
+<hr>
+</div>
+</ng-container>
+<ng-container *ngIf="next >= 2 && data.type== '4'">
+  <div fxLayout="column"  fxFlex="100" style="margin-top: -9%;">
+
+  <div fxLayout="column"  
+  class="border-style"  >
+    <h1> Functionality </h1> 
+<div fxLayout="column"  fxFlex fxLayoutGap="1px">
+      <div fxLayout="row"  fxFlex fxLayoutAlign="center center" fxLayoutGap="5px" >
+
+                <div fxLayout="row"  fxFlex  >
+
+              <mat-label  fxFlexAlign="center" class="text-color">As a function of :<i style=" color: #ffa000;">*</i> </mat-label>
+
+              <mat-form-field>
+              <mat-select  fxFlex  [(ngModel)]="modelGraphic.xAxe" (selectionChange)= "setXaxe($event);" [compareWith]="compareFunction">
+                <ng-container *ngFor="let attribute of attributes  let index =index ; " >
+
+                  <mat-option  *ngIf=" attribute.$.type === 'date' " 
+                  [value] ="{name:attribute.$.name,value:attribute.$.value}">
+                          {{attribute.$.value}}
+              
+                  </mat-option>
+                </ng-container>
+
+              </mat-select >
+            </mat-form-field>
+            </div>
+            <div fxLayout="row"  fxFlex  >
+
+            <mat-label  fxFlexAlign="center" class="text-color">By :<i style=" color: #ffa000;">*</i> </mat-label>
+
+            <mat-form-field>
+            <mat-select  fxFlex  [(ngModel)]="modelGraphic.by" >
+
+                <mat-option  *ngFor="let params of paramsDate"  [value] ="params">
+                  {{params}}
+            
+                </mat-option>
+          
+            </mat-select >
+          </mat-form-field>
+          </div>
+          <div fxLayout="row" fxFlex  >
+
+            <mat-label  fxFlexAlign="center" class="text-color">Name line :  <i style=" color: #ffa000;">*</i> </mat-label>
+
+          <mat-form-field>
+          <input matInput value="" [(ngModel)]="modelGraphic.nameLine" >
+          </mat-form-field>
+          </div>
+          <div fxLayout="row" fxFlex  >
+
+            <mat-label  fxFlexAlign="center" class="text-color">Name Y Axe :  <i style=" color: #ffa000;">*</i> </mat-label>
+
+          <mat-form-field>
+          <input matInput value="" [(ngModel)]="modelGraphic.nameYaxe" >
+          </mat-form-field>
+          </div>
+</div>
+  <div fxLayout="row"   fxFlex fxLayoutAlign="center center" fxLayoutGap="5px">
+    <div fxLayout="row"  >
+
+      <mat-label  fxFlexAlign="center" fxFlex ="50%" class="text-color">Measuring Method :<i style=" color: #ffa000;">*</i> </mat-label>
+    
+    <mat-form-field fxFlexAlign="center">
+        <mat-select [(ngModel)]="modelGraphic.methodeOfMaseur" >
+        <mat-option *ngFor="let methods of methodsMeasur"  [value]="methods.value">
+       {{methods.name}}
+         </mat-option>
+        </mat-select >
+      </mat-form-field>
+     
+      </div>
+    
+          <div fxLayout="row" fxFlex ="100%"  >
+
+          <mat-label  fxFlexAlign="center" class="text-color">Methode Of Maseur :<i style=" color: #ffa000;">*</i> </mat-label>
+        <mat-form-field>
+          <mat-select [(ngModel)]="modelGraphic.paramMethodeMaseur" >
+          <mat-option   value="all">
+            Taux by Numbers {{entity.value   | titlecase}}   </mat-option>
+              <ng-container *ngFor="let attribute of attributes  let index =index ; " >
+        
+                <mat-option  *ngIf=" attribute.$.type === 'numeric' "   [value] ="attribute.$.name">
+          {{attribute.$.value}}     
+                </mat-option>
+              </ng-container>
+        
+          </mat-select >
+        </mat-form-field>
+        
+          </div>
+          <div fxLayout="row" fxFlex ="100%"   >
+
+            <mat-label  fxFlexAlign="center"  class="text-color"> Chart Type<i style=" color: #ffa000;">*</i> </mat-label>
+
+          <mat-form-field>
+          
+            
+              <mat-select [(ngModel)]="modelGraphic.typeChart" >
+              <ng-container *ngFor="let type of chartType">
+                <ng-container  *ngIf="type =='line'  ; else elseNotLine" >
+                  <mat-option  [value]="">
+                    {{type}}
+                  </mat-option>
+                </ng-container>
+                
+               
+              <ng-template #elseNotLine>
+                <mat-option [value]="type">
+                  {{type}}
+                </mat-option>
+              </ng-template>
+            </ng-container>
+
+              </mat-select >
+            </mat-form-field>
+          
+              </div>
+          <div fxLayout="row"  fxFlex ="100%"  >
+  <mat-label  fxFlexAlign="center" class="text-color">{{indexOfUpdateRequest == null ? 'Add' : 'Edit'}} :<i style=" color: #ffa000;">*</i> </mat-label>
+
+  <button  mat-button [color]=" indexOfUpdateRequest == null ? 'accent' : 'primary' " 
+  fxFlexAlign="center" (click)="setChartOptions()"><mat-icon class="mat-icon-size"
+   [matTooltip]="indexOfUpdateRequest == null ? 'Add' : 'Edit'">{{ indexOfUpdateRequest == null ? 'add_circle' : 'build_circle'}} </mat-icon></button>
+
+         </div>
+
+</div>
+
+</div>
+</div>
+
+<div fxLayout="row" fxLayoutGap="60px" style="margin-top: -7%;">
+  <div  fxFlex class="border-style" style="margin-top: 0.5%;" *ngIf="data.type == '4'" fxFlexAlign="center">
+    <h1> {{entity.value   | titlecase}} </h1> 
+    <app-area 
+    [chartOptions]="chartOptions" ></app-area>
+    </div>
+</div>
+<hr>
+</div>
+</ng-container>
+
+</div> 
+
+<div fxFlex="2" mat-dialog-actions align = "end" >
+  <button  (click)="nameButtonNext !='Create'? back():closeDialog()" mat-flat-button >{{nameButtonBack}}</button>
+
+<button   (click)="doAction()" mat-flat-button color="primary">{{nameButtonNext}}</button>
+</div>
+
+<div fxFlexOrder="1" *ngIf="spinner " class="spinner-position ">
+  <app-spinner ></app-spinner>
+</div>
+  
+</div>

@@ -1,0 +1,18 @@
+<app-header (toggleSideBarForMe)="isOpenBar()" 
+[hiddenBarConfig] ="hiddenIconConfig"
+(upadteAllWidget)="updateALLwidget()"
+
+(IsOpenConfigEm)="isOpenBarConfig()" >
+</app-header>
+<mat-sidenav-container >
+  
+    <mat-sidenav [opened]="isOpen"  mode="side" position="start"  *ngIf="authenticationService.currentUserValue ">
+        <app-sidbar (hiddenConfigB) ="hiddenConfig($event)" ></app-sidbar>
+    </mat-sidenav>
+    <mat-sidenav style="width: 20%;" [opened]="isOpenConfig" mode="side" position="end" *ngIf="authenticationService.currentUserValue ">
+        <sidbar-config #config></sidbar-config>
+    </mat-sidenav>
+    <router-outlet></router-outlet>
+</mat-sidenav-container>
+
+<!--<footer>footer</footer> !-->

@@ -1,0 +1,67 @@
+
+.border-style{
+    border:0.5px solid #ffa000;
+    padding:10px;
+    border-radius: 20px 20px 20px 20px;
+
+}
+
+.mcc-color-picker-selector-preview[_ngcontent-xyi-c28] {
+    display: none;
+}
+.text-color{
+    font-weight: normal;
+}
+.border-style h1{
+    float: left;
+    padding: 05px;
+    margin: -25px 0 0 30px;
+    background: #fff;
+    color: #ffa000;
+    width: fit-content;
+    font-family: none;
+    font-weight: normal;
+    font-size: larger;
+}
+
+ #margin{
+     margin-top: -5%;
+ }
+ .task-header {
+    background-color: transparent;
+    padding: 0 5px;
+
+}
+.mat-dialog-title {
+    margin: -24px -24px 20px;
+        display: block;
+    background-color: #ffb500;
+    height: 50px;
+
+}
+.fx-spacer {
+    flex: 1 1 auto;
+}
+
+.mat-form-field{
+    padding: 10px;
+}
+
+
+.task-header {
+    color: white;
+    padding: 0 5px;
+     height: 50px;
+}
+.fx-spacer {
+    flex: 1 1 auto;
+}
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+    background-color: #070a20;
+}
+.mat-icon-size{
+    font-size: 35px;
+    width: 35px;
+    
+}

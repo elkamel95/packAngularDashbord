@@ -1,0 +1,24 @@
+table {
+    width: 99%;
+  }
+  .mat-header-cell {
+    color: black;
+    font-style: gras;
+    
+}
+
+.bordre{
+          border: black;
+      }
+
+.mat-raised-button.mat-accent {
+        color: white;
+    }
+    h6{
+      font-size: small;
+      font-style: oblique;
+  }
+
+  .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+    background-color: #0b0f2f;
+}

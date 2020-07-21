@@ -1,0 +1,65 @@
+<video oncanplay="this.play()" onloadedmetadata="this.muted = true" autoplay muted loop id="myVideo">
+  <source src="../../../../assets/CoverVideo/b.mp4" type="video/mp4">
+</video>
+
+<div  class="login-wrapper backgroundImage" fxLayout="row" fxLayoutAlign="center center">
+
+
+
+<div class="title" fxLayoutAlign="center center" fxLayout="column " style="margin-left: 1%;">
+<span  ><img src="../../../assets/icon/logo-sf-2.png" alt=""></span>
+<h1>Procure-to-Pay – Votre logiciel Achat</h1>
+<h3>Digitalisez l’intégralité de votre gestion Achats !</h3>
+<div fxLayout="row" fxLayoutGap="10px">
+  <button mat-stroked-button color="primary" (click)="openLogIn()"><span style="color: white;">Login</span>  </button>
+  <button mat-stroked-button color="accent"   (click)="openSigin()" ><p></p>Sign Up
+</button>
+
+</div>
+</div>
+  
+<div [hidden]="!openNowLogin" style="margin-left: 1.5%;">
+  <mat-card class="box"  >
+    <mat-card-header>
+      <img mat-card-image src="../../../assets/icon/sour.png" alt="">
+    </mat-card-header>
+
+    <form class="example-form" [formGroup]="loginForm"  >
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email"  formControlName="username" 
+      [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+      <mat-error *ngIf="f.username.invalid && (f.username.touched ||f.username.dirty )  ">
+
+          <div *ngIf="f.username.errors?.required">Email is required</div>  
+          <div *ngIf="f.username.errors?.email">Email must be a valid email address</div>
+      </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" formControlName="password" type="password" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.password.errors }" >
+           <mat-error *ngIf="f.password.errors">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+
+        </mat-error>
+        </mat-form-field>
+        <div fxLayoutAlign="end end" fxLayout="column">
+          <button   (click)="onSubmit()" [disabled]="loading" mat-raised-button color="accent"
+           fxFlex="30" class="btn-block">
+           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+
+        <p class="btn-block"></p> Log in</button>
+        </div>
+      </mat-card-content>
+    </form>
+  </mat-card>
+
+
+
+</div>
+<div style="margin-left: 5%;" [hidden]="!openNowSigin">
+
+<sign-up></sign-up>
+</div>

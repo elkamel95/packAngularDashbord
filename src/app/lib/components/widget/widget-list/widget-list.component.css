@@ -1,0 +1,20 @@
+.matCardBackground{
+  box-shadow:  0px 4px 20px 1px #fafafa54, 0 7px 10px -5px rgb(0, 0, 0);
+  color: white;
+  position: absolute;
+  height: 42px;
+  margin-left: -1%;
+  width: 95%;
+  margin-top: -60px;
+  }
+  .title{
+text-align: center; 
+  }
+
+  
+
+  td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+    padding: 20px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}

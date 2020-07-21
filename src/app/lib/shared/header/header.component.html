@@ -1,0 +1,93 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span >      
+            
+            <img class="logo"  style="margin-top: 16%;" mat-card-image src="../../../assets/icon/logo-sf-2.png" alt="">
+        </span>
+        <div  *ngIf="authenticationService.currentUserValue ">
+        <button  hidden="true"mat-icon-button (click)="toggleSideBar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+       
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <li   *ngIf="authenticationService.currentUserValue && hiddenBarConfig === false "> 
+                    <div style="margin-top: 12%;"  fxLayout="column" fxLayoutAlign="center center">
+
+                     <button mat-raised-button (click)="updateWidgetAll()" color="accent" ><span style="color: white;">Update All</span></button>
+                     </div>
+                </li>
+                <li     *ngIf="authenticationService.currentUserValue ">
+                    <div fxLayout="column" fxLayoutAlign="center center">
+
+                    <button mat-icon-button>
+                        <mat-icon>help_outline</mat-icon>
+                    </button>
+
+                    <div class="mat-caption"> 
+                        help
+                   </div>
+</div>
+                </li>
+                <li     *ngIf="authenticationService.currentUserValue && hiddenBarConfig === false ">
+                    <div fxLayout="column" fxLayoutAlign="center center">
+
+                    <button mat-icon-button (click) ="isOpenConfig()">
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                    <div class="mat-caption"> 
+                        config
+</div>
+                    </div>
+                </li>
+            
+                <div fxLayout="column" fxLayoutAlign="center center">
+
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" >
+                        <ul>
+                            <li *ngIf="authenticationService.currentUserValue ; else elseAuth" >
+                                <button mat-menu-item style="margin-left: -15%;" (click)="logout()">
+                                    <mat-icon>person_outline</mat-icon>{{authenticationService.getUsername()}}</button>
+                                    <button mat-menu-item style="margin-left: -15%;" (click)="logout()">
+                                <mat-icon>exit_to_app</mat-icon>Sign out</button></li>
+                            <li *ngIf="!authenticationService.currentUserValue ">
+
+                                <button mat-menu-item style="margin-left: -15%;" (click)="registre()">
+                                  <mat-icon>exit_to_app</mat-icon> 
+                                  registre
+                                </button>
+                                <li>
+
+                                    <a mat-menu-item style="margin-left: -15%;" routerLinkActive="list-item-active" routerLink="/widget" >
+                                        <mat-icon>person_outline</mat-icon> Profile</a>
+                                
+                                </li>
+                      
+                        </ul>
+           
+                    </mat-menu>
+
+                </li>
+                
+                
+    <div class="mat-caption"> 
+    <div *ngIf="authenticationService.currentUserValue ; else elseAuth">
+        Profile
+    </div>
+    <ng-template #elseAuth>
+        <div >
+            Registre
+        </div>
+    </ng-template>
+</div>
+</div>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

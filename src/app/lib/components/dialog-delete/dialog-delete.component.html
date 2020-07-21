@@ -1,0 +1,26 @@
+<!-- dialog-box.component.html -->
+
+
+  <h4 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="task-header">
+        <span> Delete  widget  </span>
+        <span class="fx-spacer"></span>
+        <button mat-icon-button (click)="closeDialog()">
+            <mat-icon mat-list-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+  </h4>
+  <div mat-dialog-content  class="mat-typography">
+           <p >Do you really want to delete the widget :
+         "{{data.nameFr}}"? </p>
+    
+   
+
+  
+
+  
+  </div> 
+  <div mat-dialog-actions align = "end">
+    <button  (click)="doAction()"  mat-flat-button color="primary">Delete</button>
+    <button  (click)="closeDialog()" mat-flat-button >Cancel</button>
+  </div>

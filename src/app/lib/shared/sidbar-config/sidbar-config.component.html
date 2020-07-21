@@ -1,0 +1,358 @@
+
+  
+
+<div  fxLayout="column"    class="border-style" style=" border: 0.5px solid #0b0f2f;">
+  <h1>config</h1>
+ 
+<mat-tab-group mat-align-tabs="center">
+<mat-tab >
+  <ng-template mat-tab-label>
+    style
+  </ng-template>
+      <div fxLayout="column" fxLayoutGap="20px" fxFlex class="border-style"  >
+        <h1>Text</h1>
+
+
+        <div  fxLayout="column" fxLayoutAlign="space-around start"   fxFlex>
+                <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-around start" fxFlex   >
+
+                <mat-label  fxFlexAlign="center"  class="text-color" fxFlex="30" >Size  :</mat-label>
+
+                <mat-form-field fxFlex="70" >     
+                 <mat-select  [(ngModel)]="data.size" >
+                    <mat-option  *ngFor="let item of data.type != '4'? font_size :size " [value]="item">{{item}}</mat-option>
+                  </mat-select> 
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-around start" fxFlex   >
+                  <mat-label fxFlex="30"  fxFlexAlign="center"   class="text-color">Font : </mat-label>
+
+                  <mat-form-field fxFlex="70"  >
+              
+                    <mat-select  [(ngModel)]="data.font" >
+                    <mat-option  *ngFor="let item of  font_style" [value]="item">{{item}}</mat-option>
+                    </mat-select> 
+                  </mat-form-field>
+            </div>
+              
+                </div>
+       
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around start" fxFlex   >
+
+                  <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-around start" >
+                    <mat-label  fxFlexAlign="center" class="text-color">Text Color  : </mat-label>
+                    <mcc-color-picker  hideButtons="true"  [selectedColor]="data.textColor" (selected)=" data.textColor =$event ;
+                              ">
+                              </mcc-color-picker> 
+                          
+                          </div>
+                   <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-around start" *ngIf="(data.type === '1'  || data.type === '2')" >
+                         <mat-label  fxFlexAlign="center" class="text-color">Indicator :</mat-label>
+                
+                            <mcc-color-picker  hideButtons="true"  [selectedColor]="data.colorSmallWidget"  (selected)=" data.colorSmallWidget =$event ;  "></mcc-color-picker> 
+                          
+                      
+                          </div>
+                        </div>
+        </div>
+
+                <div fxLayout="column"  fxFlex class="border-style"  >
+                    <h1>size</h1>
+
+           <div fxLayout="column" fxLayoutGap="2px" fxLayoutAlign="space-around start" fxFlex   >                     
+
+                <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="space-around start" fxFlex   >                     
+ 
+                      <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="space-around start" fxFlex   >
+                          <mat-label  fxFlexAlign="center"   class="text-color">Auto  </mat-label>
+                        <button   mat-button >
+                          <mat-icon>autorenew</mat-icon>
+                             </button>
+                      </div>
+
+                      <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="space-around start" fxFlex   >
+                        <mat-label   fxFlexAlign="center"   class="text-color">custom  </mat-label>
+                        
+                        <button   mat-button >
+                          <mat-icon>settings_overscan</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+
+                 <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="space-around start" fxFlex   >                     
+                  <mat-label   fxFlexAlign="center"   class="text-color">width : {{data.width}}px</mat-label>
+                   <mat-slider   min="data.type=4 ? 300 : 100" step="0.5" [(ngModel)]="data.width"  [max]="screenWidth" value="400" >
+                   </mat-slider>
+                   </div>                
+                     
+                   <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="space-around start" fxFlex   >     
+                    <mat-label   fxFlexAlign="center"   class="text-color">height : {{data.height}}px</mat-label>
+                
+          
+                        <mat-slider  min="100" step="0.5"  max="400" value="300"  [(ngModel)]="data.height" (input)=" data.height=$event.value">
+                        </mat-slider>
+                
+         
+                
+                  </div>
+                
+                </div>
+</div>
+
+            
+
+
+<div fxLayout="column"  fxFlex class="border-style"  >
+                    <h1>color</h1>
+                    <div fxLayout="row"  fxFlex class="border-style"  >
+
+                    <div fxLayout="row">        
+                        <mat-label  class="text-color">background: 
+                          <mcc-color-picker [selectedColor]="data.backgroundColor" hideButtons="true" (selected)=" data.backgroundColor =$event ;">
+                        </mcc-color-picker> 
+                      
+                      </mat-label>
+                      </div>
+                      
+                      <div fxLayout="row"  *ngIf="(data.type === '1'  || data.type === '2')">
+         
+                        <mat-label class="text-color" > Small Card :
+                          <mcc-color-picker usedColorLabel="backgroundSmallWidget " [selectedColor]="data.backgroundSmallWidget"  hideButtons="true" (selected)=" data.backgroundSmallWidget =$event ;  "></mcc-color-picker> 
+  
+                        </mat-label>
+                        
+                        
+                        </div>
+                      </div>
+
+    </div>
+    
+    
+    
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Layout
+    </ng-template>
+    <div fxLayout="column"  fxFlex class="border-style"  >
+      <h1>Dispositions</h1>
+
+      <mat-label class="text-color">Drag and Drop : 
+      
+       <button mat-button style ="min-width: 0px"(click)="ChangeToDragAndDrop()">
+        <mat-icon>control_camera</mat-icon>
+       </button>
+
+    
+        </mat-label>
+    
+      </div>
+      <div fxLayout="column"  fxFlex class="border-style"  >
+        <h1>Permutation</h1>
+  
+        <mat-label class="text-color">change orders: 
+        
+         <button mat-button style ="min-width: 0px"(click)="ChangePermutation()">
+          <mat-icon>      swap_vertical_circle
+          </mat-icon>
+          Widget : {{typePermut}}
+         </button>
+  
+      
+          </mat-label>
+      
+        </div>
+      <div fxLayout="column"  fxFlex class="border-style"  >
+        <h1>Position</h1>
+  
+        <mat-label class="text-color">absolute : 
+
+       <button  mat-button style ="min-width: 0px"(click)="changePostions(true)">
+            <ng-container *ngIf="ModeLayout.postions; else elseTemplate">
+              <mat-icon  style="background-color: #ffa000;
+              padding: 2px;">        gps_not_fixed
+              </mat-icon>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <mat-icon  style="opacity: 0.5;">        gps_not_fixed
+              </mat-icon>
+            </ng-template>
+     
+       
+
+    
+       </button>
+        </mat-label>
+        <mat-label class="text-color">fixed : 
+
+       <button    mat-button  style ="min-width: 0px"(click)="changePostions(false)">
+
+        <ng-container *ngIf="ModeLayout.postions; else gps_fixed">
+          <mat-icon  style="opacity: 0.5;"
+           >        gps_fixed
+          </mat-icon>
+        </ng-container>
+        <ng-template #gps_fixed>
+          <mat-icon   style="background-color: #ffa000;
+          padding: 2px;">        gps_fixed
+          </mat-icon>
+        </ng-template>
+       </button>
+     </mat-label>
+  
+      
+      
+        </div>
+      <div fxLayout="column"  fxFlex class="border-style"  >
+        <h1>Mode Layout</h1>
+  
+        <mat-label class="text-color">widget indicateur :</mat-label>
+        <div fxLayout="row" fxLayoutAlign="space-around start" fxFlex   >                     
+
+        <div fxLayout="row"  fxLayoutAlign="space-around start" fxFlex   >                     
+        
+          <mat-label  fxFlex="70" style="font-size: small;" fxFlexAlign="center" >Column:</mat-label>
+
+          <button fxFlex="30" mat-button  (click)="changeModeLayout('column','1')">
+            <mat-icon>view_column</mat-icon>
+        </button>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="space-around start" fxFlex   >                     
+        
+          <mat-label  fxFlex="70" fxFlexAlign="center"style="font-size: small;" >Row :</mat-label>
+
+
+             <button  fxFlex="10" mat-button (click)="changeModeLayout('row','1')">
+        <mat-icon>view_list</mat-icon>       
+              </button>
+
+        </div>
+       
+
+        </div>
+
+<div fxLayout="row">
+        <mat-form-field class="full-width">
+          <mat-label  class="text-color">ligne widget :</mat-label>
+          <input matInput #ligne maxlength="2"  #nbi (input) ="changeNbWidgetLayout(nbi,'1')"  placeholder=number [value]="ModeLayout.nbLigneIn ">
+          <mat-hint align="end">{{ligne.value.length}} / 2</mat-hint>
+        </mat-form-field>
+        <div>
+          <button   mat-button (click)="openReste('indicator')">
+            <img src="../../../assets/icon/reset-icon.png" style="width: 20px;"/>
+          </button>
+        </div>
+
+      </div>
+
+
+      
+
+          <mat-label class="text-color">widget List : 
+            <div fxLayout="row"  fxLayoutAlign="start start">
+              <button  mat-button style ="min-width: 0px;min-width: 0px;width: 45%;margin-left: -10%;"
+          
+              (click)="changeModeLayout('column','2')">
+                column 
+                
+              <mat-icon>view_column</mat-icon>
+            </button>
+    
+                 <button   mat-button style ="min-width: 0px;margin-left: -7%"(click)="changeModeLayout('row','2')">
+                 row: <mat-icon>view_list</mat-icon>       
+                  </button>
+    
+            </div>
+  <div fxLayout="row">
+            <mat-form-field class="full-width">
+              <mat-label  class="text-color">ligne widget :</mat-label>
+              <input matInput #ligne maxlength="2" #nblist (input) ="changeNbWidgetLayout(nblist,'2')"  placeholder=number [value]="ModeLayout.nbLigneList ">
+              <mat-hint align="end">{{ligne.value.length}} / 2</mat-hint>
+            </mat-form-field>
+
+            <div>
+              <button   mat-button (click)="openReste('list')">
+                <img src="../../../assets/icon/reset-icon.png" style="width: 20px;"/>
+              </button>
+            </div>
+          </div>
+
+              </mat-label>
+
+
+
+              <mat-label class="text-color">widget Graphique : 
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <button  mat-button style ="min-width: 0px;min-width: 0px;width: 45%;margin-left: -10%;"
+          
+                  (click)="changeModeLayout('column','3')">
+                    column 
+                    
+                  <mat-icon>view_column</mat-icon>
+                </button>
+        
+                     <button   mat-button style ="min-width: 0px;margin-left: -7%"(click)="changeModeLayout('row','3')">
+                     row: <mat-icon>view_list</mat-icon>       
+                      </button>
+        
+                </div>
+          <div fxLayout="row">
+                <mat-form-field class="full-width">
+                  <mat-label  class="text-color">ligne widget :</mat-label>
+                  <input matInput #ligne maxlength="2" #nbGh (input) ="changeNbWidgetLayout(nbGh,'3')"placeholder=number [value]="ModeLayout.nbLigneGh">
+                  <mat-hint align="end">{{ligne.value.length}} / 2</mat-hint>
+                </mat-form-field>
+
+
+                <div>
+                  <button   mat-button (click)="openReste('graphe')">
+                    <img src="../../../assets/icon/reset-icon.png" style="width: 20px;"/>
+                  </button>
+                </div>
+
+              </div>
+                  </mat-label>
+                
+                  <mat-label class="text-color"> all widget  : 
+                    <div fxLayout="row"  fxLayoutAlign="start start">
+                      <button  mat-button style ="min-width: 0px;min-width: 0px;width: 45%;margin-left: -10%;"
+          
+                      (click)="changeModeLayout('column','4')">
+                        column 
+                        
+                      <mat-icon>view_column</mat-icon>
+                    </button>
+            
+                         <button   mat-button style ="min-width: 0px;margin-left: -7%"(click)="changeModeLayout('row','4')">
+                         row: <mat-icon>view_list</mat-icon>       
+                          </button>
+            
+                    </div>
+                   <div fxLayout="row">
+                    <mat-form-field class="full-width">
+                      <mat-label  class="text-color">ligne widget :</mat-label>
+                      <input matInput #ligne maxlength="2" #nbAll (input) ="changeNbWidgetLayout(nbAll,'4')" placeholder=number value="2">
+                      <mat-hint align="end">{{ligne.value.length}} / 2</mat-hint>
+                    </mat-form-field>
+
+                    <div>
+                      <button   mat-button (click)="openReste('All')">
+                        <img src="../../../assets/icon/reset-icon.png" style="width: 20px;"/>
+                      </button>
+                    </div>
+
+                  </div>
+                      </mat-label>
+
+
+        </div>
+  </mat-tab>
+ 
+</mat-tab-group>
+<div style="padding: 10px;" fxLayoutGap="20px" fxLayout="column">
+  <button mat-raised-button (click)="updateWidget()" color="accent" ><span style="color: white;">Update</span></button>
+  <button mat-raised-button (click)="updateWidgetAll()" color="accent" ><span style="color: white;">Update All</span></button>
+
+</div>
+</div>

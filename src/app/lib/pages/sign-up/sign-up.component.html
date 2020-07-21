@@ -1,0 +1,78 @@
+    <mat-card class="box">
+      <mat-card-header style="    margin-top: -20%;" fxLayoutAlign="center center">
+        <mat-card-title ><h3>Register</h3></mat-card-title>
+      </mat-card-header>
+  
+      <form class="example-form" [formGroup]="RegistreForm" (ngSubmit)="onSubmit()" >
+  
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Username"  formControlName="username"
+             [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+             <mat-error *ngIf="f.username.errors">
+                <div *ngIf="f.username.errors.required">          username is required</div>  
+
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" >
+            <input matInput placeholder="Last name"formControlName="fullname"
+            [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }"
+            >
+            <mat-error *ngIf="f.fullname.errors">
+      
+                <div *ngIf="f.fullname.errors.required">          fullname is required</div>  
+
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" formControlName="email" 
+            [ngClass]="{ 'is-invalid': true && f.email.errors }" EmailChecker
+            >
+
+
+            <mat-error *ngIf="f.email.invalid && (f.email.touched ||f.email.dirty )  ">
+            <div *ngIf="(f.email.errors?.uniqueEmail)"> This Email is already used. Try another .</div>  
+
+                <div *ngIf="f.email.errors?.required">Email is required</div>  
+                <div *ngIf="f.email.errors?.email">Email must be a valid email address</div>
+            </mat-error>
+
+         
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Choose a Role</mat-label>
+            <mat-select formControlName="roles" hidden="true" >
+              <mat-option value="ROLE_ADMIN">admin</mat-option>
+              <mat-option value="ROLE_USER" >user</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+           type="password">
+            <mat-error *ngIf="f.password.errors">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Confirm Password" formControlName="confirm"
+           type="password"   EqualsField="password"             [ngClass]="{ 'is-invalid': submitted && f.confirm.errors }"
+           >
+              <mat-error  *ngIf="f.confirm.touched && f.confirm.errors">
+                <div *ngIf=" f.confirm.errors?.notEquals && !( f.password.errors?.minlength)" >Password  and confirm Password does not match</div>
+                <div *ngIf="f.password.errors?.required">Confirm Password is required</div>
+                <div *ngIf="f.password.errors?.minlength">Confirm Password must be at least 6 characters</div>
+
+            </mat-error>
+          </mat-form-field>
+
+          <div fxLayoutAlign="end end" fxLayout="column">
+            <button mat-raised-button color="accent" fxFlex="30" fxFlexAlign="center" [disabled]="submitted" class="btn-block">Log in</button>
+          </div>
+        </mat-card-content>
+  
+  
+      </form>
+    </mat-card>
