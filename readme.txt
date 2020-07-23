@@ -2,7 +2,7 @@
 2) git remote https://github.com/elkamel95/packageAngularDashbord.git
 3)copy all this file in your project in src folder. 
 4) import the Layout Dashboard Module into AppModule like this:
-> markdown is so cool
+### hello world
 
 
     		import { NgModule } from '@angular/core';
